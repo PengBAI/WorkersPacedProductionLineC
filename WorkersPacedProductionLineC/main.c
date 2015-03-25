@@ -2,6 +2,7 @@
 
 #define WINDOW_WIDTH  300
 #define WINDOW_HEIGHT 300
+
 int main(int argc, char ** argv)
 {
     unsigned int randSeed = 1; //(int)time(NULL);
@@ -402,6 +403,7 @@ float LoadInstance(Station*** stations, Task*** tasks, char* fileName)
 
 	return timeBound;
 }
+
 void SaveInstance(Station** stations, Task** tasks, float timeBound, char* fileName)
 {
 	int i, j;
@@ -434,7 +436,6 @@ void SaveInstance(Station** stations, Task** tasks, float timeBound, char* fileN
 		}
 		fprintf(file, "\n");
 	}
-
 	fclose(file);
 }
 
@@ -932,10 +933,12 @@ int selection_topShort(Task** Nplus, int NplusSize, Worker** workers)
     }
     return indexMin;
 }
+
 int selection_topRandom(Task** Nplus, int NplusSize, Worker** workers)
 {
 	return rand() % NplusSize; // select at random
 }
+
 int selection_test(Task** Nplus, int NplusSize, Worker** workers)
 {
 	int i;
@@ -950,6 +953,7 @@ int selection_test(Task** Nplus, int NplusSize, Worker** workers)
 
 	return selection_topLong(Nplus, NplusSize, workers);
 }
+
 int behindDue_Common(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay)
 {
 	int i;
