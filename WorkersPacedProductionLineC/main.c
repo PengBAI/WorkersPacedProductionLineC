@@ -264,7 +264,7 @@ void CreateNewInstance(int nInstance)
             {
                 for (z = 0; z < 3; z++)
                 {
-                    sprintf(path, "..//benchmarks//instance%d-%d-%d-%d-%d.txt", nbTasks[i], nbMaxWorker[j], nbStations[k], prob[z], nInstance);
+                    sprintf(path, "../benchmarks/instance%d-%d-%d-%d-%d.txt", nbTasks[i], nbMaxWorker[j], nbStations[k], prob[z], nInstance);
                     fichier = fopen(path,"w");
                     if (fichier == NULL)
                         printf("Erreur a l'ouverture du fichier\n");
@@ -662,6 +662,7 @@ int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, in
     else if (*selectionFunction == selection_topRandom){
         WriteSolution(workers, "topRandom");
     }
+    
     printf("Processing Time: %dms\n", processTime);
 
     //GTK
@@ -958,10 +959,10 @@ int behindDue_Common(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPa
 {
     int i;
     int nbWorkers = _nbWorkers;
-    /*for (i = 0; i < nbCriticalPathWay; i++)
+    for (i = 0; i < nbCriticalPathWay; i++)
     {
     tasks[(*TasksCriticalPathWay)[i]]->nbWorkersToAssign = minInt(tasks[(*TasksCriticalPathWay)[i]]->nbWorkersToAssign + 1, minInt(_nbWorkers + 1, tasks[(*TasksCriticalPathWay)[i]]->workersMax));
-    }*/
+    }
     nbWorkers++;
     return nbWorkers;
 }
@@ -1130,7 +1131,7 @@ int UpdateGNplus(Task*** G, Task*** Nplus, Task *** SetTasks, int* GSize, int nb
 void WriteSolution(Worker** workers, char *selection)
 {
     FILE * fichier = NULL;
-    char *chemin = "..//";
+    char *chemin = "../";
     char *extension = ".csv";
     char nomFichier[250];
     int solution=0;
