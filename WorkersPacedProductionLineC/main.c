@@ -117,7 +117,7 @@ void Benchmark(int create)
     int min = VALUE_MAX;
     int indexMin = VALUE_MAX;
     int i,j,k,z,a,b;
-    sprintf(path, "..//test//benchmark.csv");
+    sprintf(path, "../benchmarks/benchmark.csv");
     fichier = fopen(path, "w");
 
     fprintf(fichier, "n;rmax;s;prob;;TopLong;;;TopShort;;;PWGS(Long);;;PWGS(Short);;\n");
@@ -130,7 +130,7 @@ void Benchmark(int create)
                         if (create == 1){
                             CreateNewInstance(a);
                         }
-                        sprintf(chaine, "..//test//instance%d-%d-%d-%d-%d.txt", nbTasks[i], nbMaxWorker[j], nbStations[k], prob[z],a);
+                        sprintf(chaine, "../benchmarks/instance%d-%d-%d-%d-%d.txt", nbTasks[i], nbMaxWorker[j], nbStations[k], prob[z],a);
                         WORKERS_MAX = nbMaxWorker[j];
                         min = VALUE_MAX;
                         timeBound = LoadInstance(&stations, &tasks, chaine);
@@ -237,9 +237,9 @@ void CreateNewInstance(int nInstance)
     int numeroBi = 0;
     int numeroA = 0;
     int proba;
-    int ** stations;
-    int * tailleStations;
-    int ** predecesseur;
+    int ** stations = (int **)malloc(0);
+    int * tailleStations = (int *)malloc(0);
+    int ** predecesseur = (int **)malloc(0);
     int nbTasks[2] = { 60, 80 };
     int nbMaxWorker[3] = { 10, 30, 40};
     int nbStations[2] = { 10, 20 };
@@ -264,7 +264,7 @@ void CreateNewInstance(int nInstance)
             {
                 for (z = 0; z < 3; z++)
                 {
-                    sprintf(path, "..//test//instance%d-%d-%d-%d-%d.txt", nbTasks[i], nbMaxWorker[j], nbStations[k], prob[z], nInstance);
+                    sprintf(path, "..//benchmarks//instance%d-%d-%d-%d-%d.txt", nbTasks[i], nbMaxWorker[j], nbStations[k], prob[z], nInstance);
                     fichier = fopen(path,"w");
                     if (fichier == NULL)
                         printf("Erreur a l'ouverture du fichier\n");
