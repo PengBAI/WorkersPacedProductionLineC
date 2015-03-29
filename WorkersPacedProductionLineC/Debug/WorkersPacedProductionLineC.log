@@ -1,79 +1,9 @@
-﻿La génération a démarré 27/03/2015 14:19:54.
+﻿La génération a démarré 27/03/2015 17:00:14.
      1>Projet "D:\EUP\DI-5\DI5_S10\Projet le l'option LO\WorkersPacedProductionLineC\WorkersPacedProductionLineC\WorkersPacedProductionLineC.vcxproj" sur le nœud 2 (Build cible(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _INLINE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TC /analyze- /errorReport:prompt -IC:/gtk/include/gtk-3.0 -IC:/gtk/include/cairo -IC:/gtk/include/pango-1.0 -IC:/gtk/include/atk-1.0 -IC:/gtk/include/cairo -IC:/gtk/include/pixman-1 -IC:/gtk/include -IC:/gtk/include/freetype2 -IC:/gtk/include -IC:/gtk/include/libpng15 -IC:/gtk/include/gdk-pixbuf-2.0 -IC:/gtk/include/libpng15 -IC:/gtk/include/glib-2.0 -IC:/gtk/lib/glib-2.0/include "..\..\..\Projet le l'option LO\WorkersPacedProductionLineC\WorkersPacedProductionLineC\main.c"
-         main.c
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(27): warning C4996: 'sscanf': This function or variable may be unsafe. Consider using sscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(311) : voir la déclaration de 'sscanf'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(47): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(290) : voir la déclaration de 'scanf'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(85): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(290) : voir la déclaration de 'scanf'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(120): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : voir la déclaration de 'sprintf'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(121): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : voir la déclaration de 'fopen'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(133): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : voir la déclaration de 'sprintf'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(256): warning C4244: 'fonction' : conversion de 'time_t' en 'unsigned int', perte possible de données
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(267): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : voir la déclaration de 'sprintf'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(268): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : voir la déclaration de 'fopen'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(356): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : voir la déclaration de 'fopen'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(364): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(237) : voir la déclaration de 'fscanf'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(381): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(237) : voir la déclaration de 'fscanf'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(386): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(237) : voir la déclaration de 'fscanf'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(392): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(237) : voir la déclaration de 'fscanf'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(396): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(237) : voir la déclaration de 'fscanf'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(399): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(237) : voir la déclaration de 'fscanf'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(411): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : voir la déclaration de 'fopen'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(496): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : voir la déclaration de 'sprintf'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(510): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(540): warning C4244: 'initialisation' : conversion de 'int' en 'float', perte possible de données
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(575): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : voir la déclaration de 'sprintf'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(633): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : voir la déclaration de 'sprintf'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(657): warning C4020: 'WriteSolution' : paramètres réels trop nombreux
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(660): warning C4020: 'WriteSolution' : paramètres réels trop nombreux
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(663): warning C4020: 'WriteSolution' : paramètres réels trop nombreux
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(849): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(853): warning C4244: '=' : conversion de 'float' en 'int', perte possible de données
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(866): warning C4244: 'fonction' : conversion de 'int' en 'float', perte possible de données
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(959): warning C4101: 'i' : variable locale non référencée
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(1131): warning C4029: la déclaration de la liste de paramètres formels est différente de la définition
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(1137): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(110) : voir la déclaration de 'strcpy'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(1138): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(115) : voir la déclaration de 'strcat'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(1139): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\string.h(115) : voir la déclaration de 'strcat'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(1140): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(218) : voir la déclaration de 'fopen'
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(1180): warning C4028: paramètre formel 1 différent de la déclaration
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(274): warning C4700: variable locale 'stations' non initialisée utilisée
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(279): warning C4700: variable locale 'tailleStations' non initialisée utilisée
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(284): warning C4700: variable locale 'predecesseur' non initialisée utilisée
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\main.c(418): warning C4700: variable locale 'file' non initialisée utilisée
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\EUP\DI-5\DI5_S10\Projet le l'option LO\WorkersPacedProductionLineC\Debug\WorkersPacedProductionLineC.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\gtk\lib /LIBPATH:C:\gtk\bin "gtk-win32-3.0.lib" "atk-1.0.lib" cairo.lib fontconfig.lib gailutil.lib "gdk_pixbuf-2.0.lib" "gdk-win32-3.0.lib" "gio-2.0.lib" "glib-2.0.lib" "gmodule-2.0.lib" "gobject-2.0.lib" "gthread-2.0.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\EUP\DI-5\DI5_S10\Projet le l'option LO\WorkersPacedProductionLineC\Debug\WorkersPacedProductionLineC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\EUP\DI-5\DI5_S10\Projet le l'option LO\WorkersPacedProductionLineC\Debug\WorkersPacedProductionLineC.lib" /MACHINE:X86 /libpath:C:/gtk/lib.lib gdi32.lib imm32.lib shell32.lib ole32.lib pangocairo-1.0.lib pangoft2-1.0.lib fontconfig.lib pangowin32-1.0.lib gdi32.lib pango-1.0.lib atk-1.0.lib cairo.lib gdk_pixbuf-2.0.lib gio-2.0.lib gobject-2.0.lib glib-2.0.lib /ENTRY:mainCRTStartup Debug\main.obj
-         Debug\Station.obj
-         Debug\Task.obj
-         Debug\Utility.obj
-         Debug\Worker.obj
+     1>Link:
          WorkersPacedProductionLineC.vcxproj -> D:\EUP\DI-5\DI5_S10\Projet le l'option LO\WorkersPacedProductionLineC\Debug\WorkersPacedProductionLineC.exe
      1>Génération du projet "D:\EUP\DI-5\DI5_S10\Projet le l'option LO\WorkersPacedProductionLineC\WorkersPacedProductionLineC\WorkersPacedProductionLineC.vcxproj" terminée (Build cible(s)).
 
 La génération a réussi.
 
-Temps écoulé 00:00:08.17
+Temps écoulé 00:00:00.32
