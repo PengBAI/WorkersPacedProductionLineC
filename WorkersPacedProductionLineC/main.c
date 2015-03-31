@@ -706,7 +706,7 @@ Worker** Heuristic(Station** stations, Task** tasks, float timeBound, int (*sele
     int iBoucle;
     float Cmax; // the total processing given by the heuristic
     int * tableauRJ = (int *)malloc(_nbTasks*sizeof(int));
-    int *TasksCriticalPathWayRecop = (int *)malloc(0);
+    int * TasksCriticalPathWayRecop = (int *)malloc(0);
     int * TasksCriticalPathWay = (int *)malloc(0);
 
     // initialise workers
@@ -813,6 +813,7 @@ Worker** Heuristic(Station** stations, Task** tasks, float timeBound, int (*sele
 
     return workers;
 }
+
 Worker** HeuristicCalculation(Station** stations, Task** tasks, Task** G, Task** Nplus, Worker** workers, int GSize, int NplusSize, int (*selectionFunction)(Task**, int, Worker**))
 {
     int i;
@@ -959,10 +960,10 @@ int behindDue_Common(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPa
 {
     int i;
     int nbWorkers = _nbWorkers;
-    for (i = 0; i < nbCriticalPathWay; i++)
+    /*for (i = 0; i < nbCriticalPathWay; i++)
     {
     tasks[(*TasksCriticalPathWay)[i]]->nbWorkersToAssign = minInt(tasks[(*TasksCriticalPathWay)[i]]->nbWorkersToAssign + 1, minInt(_nbWorkers + 1, tasks[(*TasksCriticalPathWay)[i]]->workersMax));
-    }
+    }*/
     nbWorkers++;
     return nbWorkers;
 }
@@ -989,7 +990,6 @@ int behindDue_PWGS(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPath
 
     }
     return nbWorkers;
-
 }
 
 int InitHeuristic(Task** tasks, Task*** G, Task*** Nplus, int* GSize, int* NplusSize, int first)

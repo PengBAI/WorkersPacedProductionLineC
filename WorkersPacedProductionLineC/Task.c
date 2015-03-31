@@ -1,4 +1,4 @@
-#include "Task.h"
+﻿#include "Task.h"
 
 
 Task* CreateTask(int id, float duration, Station* station, int workersMin, int workersMax)
@@ -50,14 +50,16 @@ float CalculateCurrentDuration(Task* task)
 {
     return CalculateDuration(task, task->nbWorkersToAssign);
 }
+
 float CalculateDuration(Task* task, int nbWorkers)
 {
 //    return task->duration / nbWorkers;
 	float duree = task->duration;
 	float maxWorker = task->workersMax;
 	float minWorker = task->workersMin;
-
-	return maxFloat(1, duree*(1 - ((nbWorkers - minWorker) / maxWorker)));
+    // la durée inscrite dans le ﬁchier représente la durée de la tâche pour le nombre de travailleurs au minimum
+    return duree * minWorker / nbWorkers;   
+	//return maxFloat(1, duree*(1 - ((nbWorkers - minWorker) / maxWorker)));
 }
 
 void ExerciseTask(Task* task, float beginningTime)

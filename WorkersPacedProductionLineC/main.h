@@ -31,7 +31,8 @@ typedef struct Worker Worker;
 
  void Benchmark(int create);
 /** 
- * create an instance from defined variables; stations: pointer to the array of stations, 
+ * create an instance from defined variables; 
+ * stations: pointer to the array of stations, 
  * tasks: pointer to the array of tasks, seed: random seed to generate the data, fixedNbStations: if > 0 it's the number 
  * of stations to generate, fixedNbTasks: if > 0 it's the number of tasks to generate; return the due date
  */
