@@ -918,6 +918,7 @@ int selection_topLong(Task** Nplus, int NplusSize, Worker** workers)
     }
     return indexMax;
 }
+
 int selection_topShort(Task** Nplus, int NplusSize, Worker** workers)
 {
     int i = 0;
@@ -987,7 +988,6 @@ int behindDue_PWGS(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPath
         nbWorkers++;
         for (i = 0; i < _nbTasks; i++)
             tasks[i]->nbWorkersToAssign = tasks[i]->workersMin;
-
     }
     return nbWorkers;
 }
