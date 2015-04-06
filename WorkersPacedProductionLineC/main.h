@@ -52,7 +52,7 @@ typedef struct Worker Worker;
 /**
  * common process to calculate an heuristic and printing the results (parameters are described below)
  */
- int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int ** TasksCriticalPathWay, int nbCriticalPathWay), int gtk);
+ int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int ** TasksCriticalPathWay, int nbCriticalPathWay, int Cmax), int gtk);
 
 /** 
  * calculate an heuristic; stations: array of stations, tasks: array of tasks, 
@@ -60,7 +60,7 @@ typedef struct Worker Worker;
  * behindDueFunction: a function to change tasks parameter when failing to find a solution; 
  * return an array of workers containing who is working where and when
  */
- Worker** Heuristic(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int ** TasksCriticalPathWay, int nbCriticalPathWay));
+ Worker** Heuristic(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int ** TasksCriticalPathWay, int nbCriticalPathWay, int Cmax));
 /**
  * do not call directly - inner to Heuristic(...); stations: array of stations, 
  * tasks: array of tasks, G: array of tasks still needed to be processed, 
@@ -86,18 +86,26 @@ typedef struct Worker Worker;
 
  int selection_test(Task** Nplus, int NplusSize, Worker** workers);
 /**
- * rearrange tasks to do a better job; tasks: array of all tasks, 
- * Cmax: time at which all tasks were complete; 
+ * rearrange tasks to do a better job; 
+ * tasks: array of all tasks, 
  * return the new number of workers
  */
- int behindDue_Common(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay);		
+ int behindDue_Common(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay, int Delta);		
 
 /** 
- * rearrange tasks to do a better job; tasks: array of all tasks, 
- * Cmax: time at which all tasks were complete; 
+ * rearrange tasks to do a better job; 
+ * tasks: array of all tasks, 
  * return the new number of workers
  */
- int behindDue_PWGS(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay);		
+ int behindDue_PWGS(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay, int Delta);		
+
+/**
+ * rearrange tasks to do a better job; 
+ * tasks: array of all tasks, 
+ * Delta: Cmax - D
+ * return the new number of workers
+ */
+ int behindDue_PWGSv2(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay, int Delta);
  
 /**
  * initialize common parameters to calculate an heuristic; tasks: array of tasks, 

@@ -43,6 +43,8 @@ int main(int argc, char ** argv)
             printf("3. PWGS (Long)\n");
             printf("4. PWGS (Short)\n");
             printf("5. Top Random\n");
+            printf("6. PWGSv2 (Short)\n");
+            printf("7. PWGSv2 (Short)\n");
             printf("\nVotre choix ? ");
             scanf("%d", &heuristique);
 
@@ -65,12 +67,20 @@ int main(int argc, char ** argv)
             case 5:
                 CommonHeuristicProcess(stations, tasks, timeBound, selection_topRandom, behindDue_Common, 1);
                 break;
+            case 6:
+                CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGSv2, 1);
+                break;
+            case 7:
+                CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGSv2, 1);
+                break;
             default:
                 CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_Common, 1);
                 CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_Common, 1);
                 CommonHeuristicProcess(stations, tasks, timeBound, selection_topRandom, behindDue_Common, 1);
                 CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGS, 1);
                 CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGS, 1);
+                CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGSv2, 1);
+                CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGSv2, 1);
             }
             getchar();
             return 0;
@@ -96,7 +106,9 @@ int main(int argc, char ** argv)
     }
 }
 
-
+/*
+ * test with the benchmark and write the result into file .csv
+ */
 void Benchmark(int create)
 {
     Station** stations = NULL;
@@ -110,18 +122,18 @@ void Benchmark(int create)
     int nbStations[2] = { 10, 20 };
     int prob[3] = { 3, 6, 9 };
     float timeBound = 0;
-    int bestLong = 0, bestShort = 0, bestPLong = 0, bestPShort = 0, bestRand = 0;
-    float averageLong = 0.0, averageShort = 0.0, averagePLong = 0.0, averagePShort = 0.0, averageRand = 0.0;
-    int infaisableLong = 0, infaisableShort = 0, infaisablePLong = 0, infaisablePShort = 0, infaisableRand = 0;
-    int tabMin[5];
+    int bestLong = 0, bestShort = 0, bestPLong = 0, bestPShort = 0, bestRand = 0, bestPShort2 = 0, bestPLong2 = 0;
+    float averageLong = 0.0, averageShort = 0.0, averagePLong = 0.0, averagePShort = 0.0, averageRand = 0.0, averagePLong2 = 0.0, averagePShort2 = 0.0;
+    int infaisableLong = 0, infaisableShort = 0, infaisablePLong = 0, infaisablePShort = 0, infaisableRand = 0, infaisablePLong2 = 0, infaisablePShort2 = 0;
+    int tabMin[6];
     int min = VALUE_MAX;
     int indexMin = VALUE_MAX;
     int i,j,k,z,a,b;
     sprintf(path, "../benchmarks/benchmark.csv");
     fichier = fopen(path, "w");
 
-    fprintf(fichier, "n;rmax;s;prob;;TopLong;;;TopShort;;;PWGS(Long);;;PWGS(Short);;\n");
-    fprintf(fichier, ";;;;Moyenne;Infaisable;Best;Moyenne;Infaisable;Best;Moyenne;Infaisable;Best;Moyenne;Infaisable;Best;\n");
+    fprintf(fichier, "n;rmax;s;prob;;TopLong;;;TopShort;;;PWGS(Long);;;PWGS(Short);;;PWGSv2(Long);;;PWGSv2(Short);;\n");
+    fprintf(fichier, ";;;;Moyenne;Infaisable;Best;Moyenne;Infaisable;Best;Moyenne;Infaisable;Best;Moyenne;Infaisable;Best;Moyenne;Infaisable;Best;Moyenne;Infaisable;Best;\n");
     for (i = 0; i < 2; i++){
         for ( j = 0; j < 3; j++){
             for ( k = 0; k < 2; k++){
@@ -142,8 +154,11 @@ void Benchmark(int create)
 
                         tabMin[3] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGS, 0);
 
+                        tabMin[4] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGSv2, 0);
 
-                        for ( b = 0; b<4; b++){
+                        tabMin[5] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGSv2, 0);
+
+                        for ( b = 0; b<6; b++){
                             if (tabMin[b] < min && tabMin[b] != 0){
                                 min = tabMin[b];
                             }
@@ -161,10 +176,18 @@ void Benchmark(int create)
                         if (tabMin[3] == min){
                             bestPShort++;
                         }
+                        if (tabMin[4] == min){
+                            bestPLong2++;
+                        }
+                        if (tabMin[5] == min){
+                            bestPShort2++;
+                        }
                         averageLong = averageLong + (float)tabMin[0];
                         averageShort = averageShort + (float)tabMin[1];
                         averagePLong = averagePLong + (float)tabMin[2];
                         averagePShort = averagePShort + (float)tabMin[3];
+                        averagePLong2 = averagePLong2 + (float)tabMin[4];
+                        averagePShort2 = averagePShort2 + (float)tabMin[5];
                         /*averageRand = averageRand + solutionRand;*/
 
                         if (tabMin[0] == 0){
@@ -178,6 +201,12 @@ void Benchmark(int create)
                         }
                         if (tabMin[3] == 0){
                             infaisablePShort++;
+                        }
+                        if (tabMin[4] == 0){
+                            infaisablePLong2++;
+                        }
+                        if (tabMin[5] == 0){
+                            infaisablePShort2++;
                         }
                         /*if (solutionRand == 0){
                         infaisableRand++;
@@ -199,10 +228,19 @@ void Benchmark(int create)
                         averagePShort = averagePShort / (float)(10 - infaisablePShort);
                     else
                         averagePShort = 0.0;
+                    if (infaisablePLong2 != 10)
+                        averagePLong2 = averagePLong2 / (float)(10 - infaisablePLong2);
+                    else
+                        averagePLong2 = 0.0;
+                    if (infaisablePShort2 != 10)
+                        averagePShort2 = averagePShort2 / (float)(10 - infaisablePShort2);
+                    else
+                        averagePShort2 = 0.0;
                     /*averageRand = averageRand /10;*/
 
                     fprintf(fichier, "%d;%d;%d;0,%d;", nbTasks[i], nbMaxWorker[j], nbStations[k], prob[z]);
-                    fprintf(fichier, "%f;%d;%d;%f;%d;%d;%f;%d;%d;%f;%d;%d;",averageLong,
+                    fprintf(fichier, "%f;%d;%d;%f;%d;%d;%f;%d;%d;%f;%d;%d;%f;%d;%d;%f;%d;%d",
+                        averageLong,
                         infaisableLong,
                         bestLong,						
                         averageShort,
@@ -213,14 +251,23 @@ void Benchmark(int create)
                         bestPLong,
                         averagePShort,
                         infaisablePShort,
-                        bestPShort
+                        bestPShort,
+                        averagePLong2,
+                        infaisablePLong2,
+                        bestPLong2,
+                        averagePShort2,
+                        infaisablePShort2,
+                        bestPShort2
                         /*averageRand,
                         infaisableRand,
                         bestRand*/);
                     fprintf(fichier, "\n");
-                    bestLong = 0; bestShort = 0; bestPLong = 0; bestPShort = 0; bestRand = 0;
-                    averageLong = 0.0, averageShort = 0.0, averagePLong = 0.0, averagePShort = 0.0, averageRand = 0.0;
+                    bestLong = 0; bestShort = 0; bestPLong = 0; bestPShort = 0; bestRand = 0; 
+                    bestPLong2 = 0; bestPShort2 = 0;
+                    averageLong = 0.0; averageShort = 0.0; averagePLong = 0.0; averagePShort = 0.0; averageRand = 0.0;
+                    averagePLong2 = 0.0; averagePShort2 = 0.0;
                     infaisableLong = 0; infaisableShort = 0; infaisablePLong = 0; infaisablePShort = 0; infaisableRand = 0;
+                    infaisablePLong2 = 0; infaisablePShort2 = 0;
                 }
             }
         }
@@ -439,6 +486,9 @@ void SaveInstance(Station** stations, Task** tasks, float timeBound, char* fileN
     fclose(file);
 }
 
+/*
+ * Interface GUI draw guantt
+ */
 static gboolean draw_cb(GtkWidget *widget, cairo_t *cr, Worker *** workers)
 {
     int cmax = 0;
@@ -640,7 +690,13 @@ static gboolean draw_cb(GtkWidget *widget, cairo_t *cr, Worker *** workers)
     return FALSE;
 }
 
-int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int **, int),int gtk)
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//                                        HEURISTIC START
+//
+//////////////////////////////////////////////////////////////////////////////////////////////////
+int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int **, int, int),int gtk)
 {
     Worker** workers = NULL;
     struct timeb beginning;
@@ -692,7 +748,7 @@ int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, in
     return nbWorkers;
 }
 
-Worker** Heuristic(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int **, int))
+Worker** Heuristic(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int **, int, int))
 {
     int i,k, j, trouve, idTask;
     int PassageWorker=0;
@@ -772,7 +828,8 @@ Worker** Heuristic(Station** stations, Task** tasks, float timeBound, int (*sele
 
 
             }
-            nbWorkers = (*behindDueFunction)(tasks, &TasksCriticalPathWay, nbTasksCriticalPathWay);
+            // ordonnance les workers
+            nbWorkers = (*behindDueFunction)(tasks, &TasksCriticalPathWay, nbTasksCriticalPathWay, timeBound - Cmax);
 
             if (_nbWorkers != nbWorkers)
             {
@@ -957,19 +1014,19 @@ int selection_test(Task** Nplus, int NplusSize, Worker** workers)
     return selection_topLong(Nplus, NplusSize, workers);
 }
 
-int behindDue_Common(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay)
+int behindDue_Common(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay, int Delta)
 {
-    int i;
-    int nbWorkers = _nbWorkers;
+    //int i;
+    //int nbWorkers = _nbWorkers;
     /*for (i = 0; i < nbCriticalPathWay; i++)
     {
     tasks[(*TasksCriticalPathWay)[i]]->nbWorkersToAssign = minInt(tasks[(*TasksCriticalPathWay)[i]]->nbWorkersToAssign + 1, minInt(_nbWorkers + 1, tasks[(*TasksCriticalPathWay)[i]]->workersMax));
     }*/
-    nbWorkers++;
-    return nbWorkers;
+    //nbWorkers++;
+    return _nbWorkers + 1;
 }
 
-int behindDue_PWGS(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay)
+int behindDue_PWGS(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay, int Delta)
 {
     int i;
     int noChange = 0;
@@ -990,6 +1047,14 @@ int behindDue_PWGS(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPath
             tasks[i]->nbWorkersToAssign = tasks[i]->workersMin;
     }
     return nbWorkers;
+}
+/**
+ * Delta: Cmax - D
+ */
+int behindDue_PWGSv2(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay, int Delta)
+{
+
+
 }
 
 int InitHeuristic(Task** tasks, Task*** G, Task*** Nplus, int* GSize, int* NplusSize, int first)
@@ -1106,7 +1171,8 @@ int UpdateGNplus(Task*** G, Task*** Nplus, Task *** SetTasks, int* GSize, int nb
     int NplusSize = 0;
     for (i = 0; i < *GSize; i++)
     {
-        if ((*G)[i]->nbPredecessors == (*G)[i]->nbPredecessorsDone) // pass from G to Nplus tasks which have no more predecessor to process
+        if ((*G)[i]->nbPredecessors == (*G)[i]->nbPredecessorsDone) 
+            // pass from G to Nplus tasks which have no more predecessor to process
         {
             int j = 0;
             int trouve = 0;
