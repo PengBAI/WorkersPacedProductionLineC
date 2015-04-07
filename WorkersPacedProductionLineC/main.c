@@ -5,105 +5,109 @@
 
 int main(int argc, char ** argv)
 {
-    unsigned int randSeed = 1; //(int)time(NULL);
-    Station** stations = NULL;
-    Task** tasks = NULL;
-    Worker** workers = NULL;
-    float timeBound = 0;
-    char chaine[50] = "";
-    int heuristique = 0;
-    int create = 0;
-    int nombre = 0;
-    char choix[50] = "";
-    int solution = 0;
+    int turn = 0;
+    while(++turn){
+        unsigned int randSeed = 1; //(int)time(NULL);
+        Station** stations = NULL;
+        Task** tasks = NULL;
+        Worker** workers = NULL;
+        float timeBound = 0;
+        char chaine[50] = "";
+        int heuristique = 0;
+        int create = 0;
+        int nombre = 0;
+        char choix[50] = "";
+        int solution = 0;
 
-    gtk_init(&argc, &argv);
+        gtk_init(&argc, &argv);
 
-    printf("=== Choix ===\n\n");
-    printf("1. Vos propres donnees\n");
-    printf("2. Benchmark\n");
-    fgets(choix, sizeof(choix), stdin);
-    clean(choix, stdin);
-    sscanf(choix, "%d", &nombre);
+        printf("\n======= Choix %d =======\n\n", turn);
+        printf("1. Vos propres donnees\n");
+        printf("2. Benchmark\n");
+        fgets(choix, sizeof(choix), stdin);
+        clean(choix, stdin);
+        sscanf(choix, "%d", &nombre);
 
-    if (nombre == 1 || nombre == 2){
-        _nbStations = 0;
-        _nbTasks = 0;
-        _nbWorkers = 0;
-        WORKERS_MAX = 100;
-        if (nombre == 1){
-            printf("=== Fichier ===\n\n");
-            printf("Veuillez donner le chemin d'acces de votre instance :\n");
-            fgets(chaine, sizeof(chaine), stdin);
-            clean(chaine, stdin);
+        if (nombre == 1 || nombre == 2){
+            _nbStations = 0;
+            _nbTasks = 0;
+            _nbWorkers = 0;
+            WORKERS_MAX = 100;
+            if (nombre == 1){
+                printf("======= Fichier =======\n\n");
+                printf("Veuillez donner le chemin d'acces de votre instance :\n");
+                fgets(chaine, sizeof(chaine), stdin);
+                clean(chaine, stdin);
 
-            printf("=== Heuristique ===\n\n");
-            printf("1. Top Long\n");
-            printf("2. Top Short\n");
-            printf("3. PWGS (Long)\n");
-            printf("4. PWGS (Short)\n");
-            printf("5. Top Random\n");
-            printf("6. PWGSv2 (Short)\n");
-            printf("7. PWGSv2 (Short)\n");
-            printf("\nVotre choix ? ");
-            scanf("%d", &heuristique);
+                printf("======= Heuristique =======\n\n");
+                printf("1. Top Long\n");
+                printf("2. Top Short\n");
+                printf("3. PWGS (Long)\n");
+                printf("4. PWGS (Short)\n");
+                printf("5. PWGSv2 (Long)\n");
+                printf("6. PWGSv2 (Short)\n");
+                printf("7. Top Random\n");
+                printf("\nVotre choix ? ");
+                scanf("%d", &heuristique);
 
-            timeBound = LoadInstance(&stations, &tasks, chaine);
+                timeBound = LoadInstance(&stations, &tasks, chaine);
 
-            switch (heuristique)
-            {
-            case 1:
-                CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_Common, 1);
-                break;
-            case 2:
-                CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_Common, 1);
-                break;
-            case 3:
-                CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGS, 1);
-                break;
-            case 4:
-                CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGS, 1);
-                break;
-            case 5:
-                CommonHeuristicProcess(stations, tasks, timeBound, selection_topRandom, behindDue_Common, 1);
-                break;
-            case 6:
-                CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGSv2, 1);
-                break;
-            case 7:
-                CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGSv2, 1);
-                break;
-            default:
-                CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_Common, 1);
-                CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_Common, 1);
-                CommonHeuristicProcess(stations, tasks, timeBound, selection_topRandom, behindDue_Common, 1);
-                CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGS, 1);
-                CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGS, 1);
-                CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGSv2, 1);
-                CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGSv2, 1);
+                switch (heuristique)
+                {
+                case 1:
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_Common, 1);
+                    break;
+                case 2:
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_Common, 1);
+                    break;
+                case 3:
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGS, 1);
+                    break;
+                case 4:
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGS, 1);
+                    break;
+                case 5:
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGSv2, 1);
+                    break;
+                case 6:
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGSv2, 1);
+                    break;
+                case 7:
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topRandom, behindDue_Common, 1);
+                    break;
+                default:
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_Common, 1);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_Common, 1);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGS, 1);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGS, 1);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGSv2, 1);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGSv2, 1);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topRandom, behindDue_Common, 1);
+                }
+                getchar();
+                //return 0;
             }
-            getchar();
-            return 0;
+            else{
+                //Création de nouvelles instances aléatoires
+
+                //Benchmark
+                printf("=== Benchmark ===\n\n");
+                printf("0. Garder les jeux de donnees tests\n");
+                printf("1. Recrer un nouveau jeu de donnees\n");
+                scanf("%d", &create);
+
+                Benchmark(create);
+                getchar();
+                //return 0;
+            }
         }
         else{
-            //Création de nouvelles instances aléatoires
-
-            //Benchmark
-            printf("=== Benchmark ===\n\n");
-            printf("0. Garder les jeux de donnees tests\n");
-            printf("1. Recrer un nouveau jeu de donnees\n");
-            scanf("%d", &create);
-
-            Benchmark(create);
+            printf("Erreur dans la sélection.");
             getchar();
-            return 0;
+            //return 0;
         }
     }
-    else{
-        printf("Erreur dans la sélection.");
-        getchar();
-        return 0;
-    }
+    return 0;
 }
 
 /*
@@ -696,7 +700,7 @@ static gboolean draw_cb(GtkWidget *widget, cairo_t *cr, Worker *** workers)
 //                                        HEURISTIC START
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////
-int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int **, int, int),int gtk)
+int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int **, int, float),int gtk)
 {
     Worker** workers = NULL;
     struct timeb beginning;
@@ -719,7 +723,7 @@ int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, in
         WriteSolution(workers, "topRandom");
     }
     
-    printf("Processing Time: %dms\n", processTime);
+    printf("Processing Time: %d ms\n", processTime);
 
     //GTK
     if (gtk == 1)
@@ -748,7 +752,7 @@ int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, in
     return nbWorkers;
 }
 
-Worker** Heuristic(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int **, int, int))
+Worker** Heuristic(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int **, int, float))
 {
     int i,k, j, trouve, idTask;
     int PassageWorker=0;
@@ -829,7 +833,7 @@ Worker** Heuristic(Station** stations, Task** tasks, float timeBound, int (*sele
 
             }
             // ordonnance les workers
-            nbWorkers = (*behindDueFunction)(tasks, &TasksCriticalPathWay, nbTasksCriticalPathWay, timeBound - Cmax);
+            nbWorkers = (*behindDueFunction)(tasks, &TasksCriticalPathWay, nbTasksCriticalPathWay, Cmax - timeBound);
 
             if (_nbWorkers != nbWorkers)
             {
@@ -1014,19 +1018,19 @@ int selection_test(Task** Nplus, int NplusSize, Worker** workers)
     return selection_topLong(Nplus, NplusSize, workers);
 }
 
-int behindDue_Common(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay, int Delta)
+int behindDue_Common(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay, float Delta)
 {
     //int i;
-    //int nbWorkers = _nbWorkers;
+    int nbWorkers = _nbWorkers;
     /*for (i = 0; i < nbCriticalPathWay; i++)
     {
     tasks[(*TasksCriticalPathWay)[i]]->nbWorkersToAssign = minInt(tasks[(*TasksCriticalPathWay)[i]]->nbWorkersToAssign + 1, minInt(_nbWorkers + 1, tasks[(*TasksCriticalPathWay)[i]]->workersMax));
     }*/
-    //nbWorkers++;
-    return _nbWorkers + 1;
+    nbWorkers++;
+    return nbWorkers;
 }
 
-int behindDue_PWGS(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay, int Delta)
+int behindDue_PWGS(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay, float Delta)
 {
     int i;
     int noChange = 0;
@@ -1051,10 +1055,38 @@ int behindDue_PWGS(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPath
 /**
  * Delta: Cmax - D
  */
-int behindDue_PWGSv2(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay, int Delta)
+int behindDue_PWGSv2(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay, float Delta)
 {
+    int i = 0;
+    float delta = 0.0;
+    int noChange = 0;
+    int nbWorkers = _nbWorkers;
+    int nbWoekersAssignedTask = 0;
+    int nbWorkersChange = 0;
+    while(delta < Delta && i < nbCriticalPathWay)
+    {
+        nbWoekersAssignedTask = tasks[(*TasksCriticalPathWay)[i]]->nbWorkersToAssign;
 
-
+        // delta < Delta et Pour toutes les opérations dans le chemin critique
+        if ( nbWoekersAssignedTask < tasks[(*TasksCriticalPathWay)[i]]->workersMax && nbWoekersAssignedTask < _nbWorkers)
+        {
+            // on assigne tous les workers libres
+            nbWorkersChange = minInt(tasks[(*TasksCriticalPathWay)[i]]->workersMax, _nbWorkers);
+            // mise à jour delta
+            delta += CalculateDuration(tasks[(*TasksCriticalPathWay)[i]], nbWoekersAssignedTask) - CalculateDuration(tasks[(*TasksCriticalPathWay)[i]], nbWorkersChange);
+            tasks[(*TasksCriticalPathWay)[i]]->nbWorkersToAssign = nbWorkersChange;
+            noChange = 1;
+        }
+        i++;
+    }
+    //pas de solutions malgré les changements, on rend l'ordo initial, on ajoute un worker aux taches du chemin critique et on rajoute un worker
+    if (noChange == 0)
+    {
+        nbWorkers++;
+        for (i = 0; i < _nbTasks; i++)
+            tasks[i]->nbWorkersToAssign = tasks[i]->workersMin;
+    }
+    return nbWorkers;
 }
 
 int InitHeuristic(Task** tasks, Task*** G, Task*** Nplus, int* GSize, int* NplusSize, int first)
@@ -1208,7 +1240,7 @@ void WriteSolution(Worker** workers, char *selection)
     if (workers == NULL)
     {
         printf("Infeasible Solution.\n");
-        fprintf(fichier,"Infeasible Solution. \n");
+        fprintf(fichier,"Infeasible Solution.\n");
     }
     else // write for each workers what they do and when
     {
@@ -1237,10 +1269,8 @@ void WriteSolution(Worker** workers, char *selection)
         }
         printf("Found solution: %d workers\n", _nbWorkers); // Found solution: X workers
         fprintf(fichier, "Found solution;%d workers\n", _nbWorkers); // Found solution: X workers
-
-        fclose(fichier);
-
     }
+    fclose(fichier);
 }
 
 void clean(char *buffer, FILE *fp)
