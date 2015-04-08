@@ -48,7 +48,7 @@ typedef struct Worker Worker;
  */
  void SaveInstance(Station** stations, Task** tasks, float timeBound, char* fileName);
 
- void clean(const char *buffer, FILE *fp);
+ void clean(char *buffer, FILE *fp);
 /**
  * common process to calculate an heuristic and printing the results (parameters are described below)
  */
@@ -135,7 +135,7 @@ typedef struct Worker Worker;
 /**
  * write the solution found on screen; workers: array of assigned workers
  */
- void WriteSolution(Worker** workers);	
+ void WriteSolution(Worker** workers, char *selection);	
 
 
 #endif // MAIN_H_INCLUDED

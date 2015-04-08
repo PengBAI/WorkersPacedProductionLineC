@@ -53,7 +53,7 @@ void AssignTask(Worker* worker, Task* task, int beginningTime)
 float SortAsc(Worker** workers, int nbWorkersToAssign, float dateDispo, int * tableauWorkers)
 {
 	int i;
-	float min = LLONG_MAX;
+    float min = FLT_MAX;
 	float newDateDispo = dateDispo;
 	int position = 0;
 	for (i = 0; i < nbWorkersToAssign; i++) {

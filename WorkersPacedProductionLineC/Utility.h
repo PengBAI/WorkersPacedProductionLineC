@@ -6,7 +6,7 @@
 #include <string.h>
 #include <math.h>
 #include <time.h>
-#include <sys/timeb.h>
+#include <conio.h>
 #include "main.h"
 #include "Task.h"
 #include "Station.h"

@@ -29,16 +29,16 @@ float minFloat(float value1, float value2)
 char * floatToChar(float numberFloat) {
 	int partieDecimale1, partieDecimale2;
 	char * result;
-	int partieEntiere = floor(numberFloat);
+	int partieEntiere = (int)floor(numberFloat);
 	int newPartieEntiere = partieEntiere;
 	int puissance = 1;
 	while (newPartieEntiere > 10) {
-		newPartieEntiere = floor(newPartieEntiere / 10.0);
+		newPartieEntiere = (int)floor(newPartieEntiere / 10.0);
 		puissance++;
 	}
 	result = (char *)malloc(sizeof(char)*(puissance + 3));
-	partieDecimale1 = floor(numberFloat * 10) - (partieEntiere * 10);
-	partieDecimale2 = floor(numberFloat * 100) - (partieDecimale1 * 10) - (partieEntiere * 100);
+	partieDecimale1 = (int)floor(numberFloat * 10) - (partieEntiere * 10);
+	partieDecimale2 = (int)floor(numberFloat * 100) - (partieDecimale1 * 10) - (partieEntiere * 100);
 
 	sprintf(result, "%d,%d%d", partieEntiere, partieDecimale1, partieDecimale2);
 	return result;

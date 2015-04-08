@@ -112,8 +112,8 @@ int main(int argc, char ** argv)
 }
 
 /*
- * test with the benchmark and write the result into file .csv
- */
+* test with the benchmark and write the result into file .csv
+*/
 void Benchmark(int create)
 {
     Station** stations = NULL;
@@ -141,8 +141,8 @@ void Benchmark(int create)
     sprintf(path, "../benchmarks/benchmark.csv");
     fichier = fopen(path, "w");
 
-    fprintf(fichier, "n;rmax;s;prob;;TopLong;;;;TopShort;;;;PWGS(Long);;;;PWGS(Short);;;;PWGSv2(Long);;;;PWGSv2(Short);;;\n");
-    fprintf(fichier, ";;;;Moyenne;ProcessTime;Infaisable;Best;Moyenne;ProcessTime;Infaisable;Best;Moyenne;ProcessTime;Infaisable;Best;Moyenne;ProcessTime;Infaisable;Best;Moyenne;ProcessTime;Infaisable;Best;Moyenne;ProcessTime;Infaisable;Best;\n");
+    fprintf(fichier, "nbTasks;rmax;nbStations;prob;;TopLong;;;;TopShort;;;;PWGS(Long);;;;PWGS(Short);;;;PWGSv2(Long);;;;PWGSv2(Short);;;\n");
+    fprintf(fichier, ";;;;Moyenne;ProcessTime(ms);Infaisable;Best;Moyenne;ProcessTime(ms);Infaisable;Best;Moyenne;ProcessTime(ms);Infaisable;Best;Moyenne;ProcessTime(ms);Infaisable;Best;Moyenne;ProcessTime(ms);Infaisable;Best;Moyenne;ProcessTime(ms);Infaisable;Best;\n");
     for (i = 0; i < 2; i++){
         for ( j = 0; j < 3; j++){
             for ( k = 0; k < 2; k++){
@@ -156,16 +156,17 @@ void Benchmark(int create)
                         WORKERS_MAX = nbMaxWorker[j];
                         min = VALUE_MAX;
                         timeBound = LoadInstance(&stations, &tasks, chaine);
+                        // TopLong
                         tabMin[0] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_Common, 0, &processTimeLong);
-
+                        // TopShort
                         tabMin[1] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_Common, 0, &processTimeShort);
-
+                        // TopLong PWGS
                         tabMin[2] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGS, 0, &processTimeLongPWGS);
-
+                        // TopShort PWGS
                         tabMin[3] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGS, 0, &processTimeShortPWGS);
-
+                        // TopLong PWGSv2
                         tabMin[4] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGSv2, 0, &processTimeLongPWGSv2);
-
+                        // TopShort PWGSv2
                         tabMin[5] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGSv2, 0, &processTimeShortPWGSv2);
 
                         for ( b = 0; b<6; b++){
@@ -226,7 +227,7 @@ void Benchmark(int create)
                         infaisableRand++;
                         }*/
                     }
-                    
+
                     // compute process average time
                     for(iPT = 0; iPT < 6; iPT++){
                         tabProcessTime[iPT] = tabProcessTime[iPT] / 6;
@@ -304,6 +305,10 @@ void Benchmark(int create)
     fclose(fichier);
 }
 
+/**
+* creat new instances
+* @param nInstance,  number of instance
+*/
 void CreateNewInstance(int nInstance)
 {
     // Init
@@ -329,7 +334,7 @@ void CreateNewInstance(int nInstance)
     int i, j, k, l, z, m,y,w, iBoucle;
     char path[256];
     FILE *fichier = NULL;
-    srand(time(NULL));
+    srand((int)time(NULL));
 
     // ecriture
     for (i = 0; i < nombreTaches; i++)
@@ -423,6 +428,9 @@ void CreateNewInstance(int nInstance)
     free(predecesseur);
 }
 
+/**
+* read instance in .txt and initail the variables
+*/
 float LoadInstance(Station*** stations, Task*** tasks, char* fileName)
 {
     int i, j;
@@ -480,10 +488,13 @@ float LoadInstance(Station*** stations, Task*** tasks, char* fileName)
     return timeBound;
 }
 
+/**
+* NoUse
+*/
 void SaveInstance(Station** stations, Task** tasks, float timeBound, char* fileName)
 {
     int i, j;
-    FILE* file;
+    FILE* file = NULL;
     if (!fopen(fileName, "w+"))
     {
         printf("Echec de la sauvegarde dans le fichier %s.\n", fileName);
@@ -516,8 +527,8 @@ void SaveInstance(Station** stations, Task** tasks, float timeBound, char* fileN
 }
 
 /*
- * Interface GUI draw guantt
- */
+* Interface GUI draw guantt
+*/
 static gboolean draw_cb(GtkWidget *widget, cairo_t *cr, Worker *** workers)
 {
     int cmax = 0;
@@ -586,7 +597,7 @@ static gboolean draw_cb(GtkWidget *widget, cairo_t *cr, Worker *** workers)
     {
         for ( j = 0; j < (*workers)[i]->nbTasks; j++)
         {
-            FinTache = (*workers)[i]->doneTasks[j]->endingTime;
+            FinTache = (int)(*workers)[i]->doneTasks[j]->endingTime;
 
             if (FinTache > cmax)
                 cmax = FinTache;
@@ -616,7 +627,7 @@ static gboolean draw_cb(GtkWidget *widget, cairo_t *cr, Worker *** workers)
             float FinTache = (*workers)[i]->doneTasks[j]->endingTime;
             float duration = CalculateCurrentDuration((*workers)[i]->doneTasks[j]);
             int numeroTache = (*workers)[i]->doneTasks[j]->id;
-            float decBas = tailleLongueur - 50 * (i + 1);
+            float decBas = (float)(tailleLongueur - 50 * (i + 1));
             char numTache[5];
             float decGauche;
             float longH;
@@ -728,14 +739,16 @@ static gboolean draw_cb(GtkWidget *widget, cairo_t *cr, Worker *** workers)
 int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int **, int, float),int gtk, int* processTime)
 {
     Worker** workers = NULL;
-    struct timeb beginning;
-    struct timeb ending;
     int nbWorkers;
+
+    clock_t start_time;
+    clock_t end_time;
     // try to calculate the time needed to do an heuristic
-    ftime(&beginning);
+    start_time = clock();
     workers = Heuristic(stations, tasks, timeBound, (*selectionFunction), (*behindDueFunction));
-    ftime(&ending);
-    *processTime = ending.millitm - beginning.millitm;
+    end_time = clock();
+    *processTime = end_time - start_time; // ms
+
     // writings to screen
     if (*selectionFunction == selection_topLong){
         WriteSolution(workers, "topLong");
@@ -746,7 +759,7 @@ int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, in
     else if (*selectionFunction == selection_topRandom){
         WriteSolution(workers, "topRandom");
     }
-    
+
     printf("Processing Time: %d ms\n", *processTime);
 
     //GTK
@@ -933,11 +946,11 @@ Worker** HeuristicCalculation(Station** stations, Task** tasks, Task** G, Task**
                 DateDispo = Nplus[chosenTaskIndex]->availabilityTime;
 
                 if (beginningTime == -1)
-                    beginningTime = SortAsc(workers, nbWorkersToAssign, DateDispo, tableauWorkers);
+                    beginningTime = (int)SortAsc(workers, nbWorkersToAssign, DateDispo, tableauWorkers);
                 else
                 {
                     if (SetParallelTask(workers, nbWorkersToAssign, DateDispo, beginningTime) == 0)
-                        beginningTime = SortAsc(workers, nbWorkersToAssign, DateDispo, tableauWorkers);
+                        beginningTime = (int)SortAsc(workers, nbWorkersToAssign, DateDispo, tableauWorkers);
                     else
                         SetTask = -1;
                 }
@@ -950,7 +963,7 @@ Worker** HeuristicCalculation(Station** stations, Task** tasks, Task** G, Task**
                     TasksDone = (Task **)realloc(TasksDone, sizeof(Task *)*compteurTasksDone);
                     //On enregistre l'id de la tache placée
                     TasksDone[compteurTasksDone - 1] = Nplus[chosenTaskIndex];
-                    ExerciseTask(Nplus[chosenTaskIndex], beginningTime);
+                    ExerciseTask(Nplus[chosenTaskIndex], (float)beginningTime);
                     SetAllTasks--;
                 }
                 else
@@ -1077,8 +1090,8 @@ int behindDue_PWGS(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPath
     return nbWorkers;
 }
 /**
- * Delta: Cmax - D
- */
+* Delta: Cmax - D
+*/
 int behindDue_PWGSv2(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPathWay, float Delta)
 {
     int i = 0;
