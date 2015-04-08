@@ -52,7 +52,7 @@ typedef struct Worker Worker;
 /**
  * common process to calculate an heuristic and printing the results (parameters are described below)
  */
- int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int ** TasksCriticalPathWay, int nbCriticalPathWay, float Delta), int gtk);
+ int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int ** TasksCriticalPathWay, int nbCriticalPathWay, float Delta), int gtk,int* processTime);
 
 /** 
  * calculate an heuristic; stations: array of stations, tasks: array of tasks, 

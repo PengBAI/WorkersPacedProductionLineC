@@ -18,6 +18,7 @@ int main(int argc, char ** argv)
         int nombre = 0;
         char choix[50] = "";
         int solution = 0;
+        int processTime = 0;
 
         gtk_init(&argc, &argv);
 
@@ -55,34 +56,34 @@ int main(int argc, char ** argv)
                 switch (heuristique)
                 {
                 case 1:
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_Common, 1);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_Common, 1, &processTime);
                     break;
                 case 2:
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_Common, 1);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_Common, 1, &processTime);
                     break;
                 case 3:
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGS, 1);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGS, 1,&processTime);
                     break;
                 case 4:
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGS, 1);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGS, 1,&processTime);
                     break;
                 case 5:
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGSv2, 1);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGSv2, 1,&processTime);
                     break;
                 case 6:
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGSv2, 1);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGSv2, 1,&processTime);
                     break;
                 case 7:
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topRandom, behindDue_Common, 1);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topRandom, behindDue_Common, 1,&processTime);
                     break;
                 default:
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_Common, 1);
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_Common, 1);
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGS, 1);
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGS, 1);
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGSv2, 1);
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGSv2, 1);
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topRandom, behindDue_Common, 1);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_Common, 1,&processTime);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_Common, 1,&processTime);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGS, 1,&processTime);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGS, 1,&processTime);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGSv2, 1,&processTime);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGSv2, 1,&processTime);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topRandom, behindDue_Common, 1,&processTime);
                 }
                 getchar();
                 //return 0;
@@ -129,19 +130,24 @@ void Benchmark(int create)
     int bestLong = 0, bestShort = 0, bestPLong = 0, bestPShort = 0, bestRand = 0, bestPShort2 = 0, bestPLong2 = 0;
     float averageLong = 0.0, averageShort = 0.0, averagePLong = 0.0, averagePShort = 0.0, averageRand = 0.0, averagePLong2 = 0.0, averagePShort2 = 0.0;
     int infaisableLong = 0, infaisableShort = 0, infaisablePLong = 0, infaisablePShort = 0, infaisableRand = 0, infaisablePLong2 = 0, infaisablePShort2 = 0;
-    int tabMin[6];
+    // process time
+    int processTimeLong = 0, processTimeShort = 0, processTimeLongPWGS = 0, processTimeShortPWGS = 0, processTimeLongPWGSv2 = 0, processTimeShortPWGSv2 = 0;
+    int tabMin[6];  // save min worker 
+    int tabProcessTime[6] = {0,0,0,0,0,0}; // processTime
+    int iPT = 0; // index for tabProcessTime[]
     int min = VALUE_MAX;
     int indexMin = VALUE_MAX;
     int i,j,k,z,a,b;
     sprintf(path, "../benchmarks/benchmark.csv");
     fichier = fopen(path, "w");
 
-    fprintf(fichier, "n;rmax;s;prob;;TopLong;;;TopShort;;;PWGS(Long);;;PWGS(Short);;;PWGSv2(Long);;;PWGSv2(Short);;\n");
-    fprintf(fichier, ";;;;Moyenne;Infaisable;Best;Moyenne;Infaisable;Best;Moyenne;Infaisable;Best;Moyenne;Infaisable;Best;Moyenne;Infaisable;Best;Moyenne;Infaisable;Best;\n");
+    fprintf(fichier, "n;rmax;s;prob;;TopLong;;;;TopShort;;;;PWGS(Long);;;;PWGS(Short);;;;PWGSv2(Long);;;;PWGSv2(Short);;;\n");
+    fprintf(fichier, ";;;;Moyenne;ProcessTime;Infaisable;Best;Moyenne;ProcessTime;Infaisable;Best;Moyenne;ProcessTime;Infaisable;Best;Moyenne;ProcessTime;Infaisable;Best;Moyenne;ProcessTime;Infaisable;Best;Moyenne;ProcessTime;Infaisable;Best;\n");
     for (i = 0; i < 2; i++){
         for ( j = 0; j < 3; j++){
             for ( k = 0; k < 2; k++){
                 for ( z = 0; z < 3; z++){
+                    // test 10 instances
                     for ( a = 0; a < 10; a++){
                         if (create == 1){
                             CreateNewInstance(a);
@@ -150,17 +156,17 @@ void Benchmark(int create)
                         WORKERS_MAX = nbMaxWorker[j];
                         min = VALUE_MAX;
                         timeBound = LoadInstance(&stations, &tasks, chaine);
-                        tabMin[0] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_Common, 0);
+                        tabMin[0] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_Common, 0, &processTimeLong);
 
-                        tabMin[1] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_Common, 0);
+                        tabMin[1] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_Common, 0, &processTimeShort);
 
-                        tabMin[2] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGS, 0);
+                        tabMin[2] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGS, 0, &processTimeLongPWGS);
 
-                        tabMin[3] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGS, 0);
+                        tabMin[3] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGS, 0, &processTimeShortPWGS);
 
-                        tabMin[4] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGSv2, 0);
+                        tabMin[4] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGSv2, 0, &processTimeLongPWGSv2);
 
-                        tabMin[5] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGSv2, 0);
+                        tabMin[5] = CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGSv2, 0, &processTimeShortPWGSv2);
 
                         for ( b = 0; b<6; b++){
                             if (tabMin[b] < min && tabMin[b] != 0){
@@ -194,6 +200,10 @@ void Benchmark(int create)
                         averagePShort2 = averagePShort2 + (float)tabMin[5];
                         /*averageRand = averageRand + solutionRand;*/
 
+                        tabProcessTime[0] += processTimeLong; tabProcessTime[1] += processTimeShort;
+                        tabProcessTime[2] += processTimeLongPWGS; tabProcessTime[3] += processTimeShortPWGS; 
+                        tabProcessTime[4] += processTimeLongPWGSv2; tabProcessTime[5] += processTimeShortPWGSv2; 
+
                         if (tabMin[0] == 0){
                             infaisableLong++;
                         }
@@ -216,6 +226,12 @@ void Benchmark(int create)
                         infaisableRand++;
                         }*/
                     }
+                    
+                    // compute process average time
+                    for(iPT = 0; iPT < 6; iPT++){
+                        tabProcessTime[iPT] = tabProcessTime[iPT] / 6;
+                    }
+
                     if (infaisableLong != 10)
                         averageLong = averageLong / (float)(10 - infaisableLong);
                     else
@@ -243,23 +259,29 @@ void Benchmark(int create)
                     /*averageRand = averageRand /10;*/
 
                     fprintf(fichier, "%d;%d;%d;0,%d;", nbTasks[i], nbMaxWorker[j], nbStations[k], prob[z]);
-                    fprintf(fichier, "%f;%d;%d;%f;%d;%d;%f;%d;%d;%f;%d;%d;%f;%d;%d;%f;%d;%d",
+                    fprintf(fichier, "%f;%d;%d;%d;%f;%d;%d;%d;%f;%d;%d;%d;%f;%d;%d;%d;%f;%d;%d;%d;%f;%d;%d;%d",
                         averageLong,
+                        tabProcessTime[0],
                         infaisableLong,
                         bestLong,						
                         averageShort,
+                        tabProcessTime[1],
                         infaisableShort,
                         bestShort,
                         averagePLong,
+                        tabProcessTime[2],
                         infaisablePLong,
                         bestPLong,
                         averagePShort,
+                        tabProcessTime[3],
                         infaisablePShort,
                         bestPShort,
                         averagePLong2,
+                        tabProcessTime[4],
                         infaisablePLong2,
                         bestPLong2,
                         averagePShort2,
+                        tabProcessTime[5],
                         infaisablePShort2,
                         bestPShort2
                         /*averageRand,
@@ -272,6 +294,9 @@ void Benchmark(int create)
                     averagePLong2 = 0.0; averagePShort2 = 0.0;
                     infaisableLong = 0; infaisableShort = 0; infaisablePLong = 0; infaisablePShort = 0; infaisableRand = 0;
                     infaisablePLong2 = 0; infaisablePShort2 = 0;
+                    for(iPT = 0; iPT < 6; iPT++){
+                        tabProcessTime[iPT] = 0;
+                    }
                 }
             }
         }
@@ -700,18 +725,17 @@ static gboolean draw_cb(GtkWidget *widget, cairo_t *cr, Worker *** workers)
 //                                        HEURISTIC START
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////
-int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int **, int, float),int gtk)
+int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, int (*selectionFunction)(Task**, int, Worker**), int (*behindDueFunction)(Task**, int **, int, float),int gtk, int* processTime)
 {
     Worker** workers = NULL;
     struct timeb beginning;
     struct timeb ending;
-    int processTime;
     int nbWorkers;
     // try to calculate the time needed to do an heuristic
     ftime(&beginning);
     workers = Heuristic(stations, tasks, timeBound, (*selectionFunction), (*behindDueFunction));
     ftime(&ending);
-    processTime = ending.millitm - beginning.millitm;
+    *processTime = ending.millitm - beginning.millitm;
     // writings to screen
     if (*selectionFunction == selection_topLong){
         WriteSolution(workers, "topLong");
@@ -723,7 +747,7 @@ int CommonHeuristicProcess(Station** stations, Task** tasks, float timeBound, in
         WriteSolution(workers, "topRandom");
     }
     
-    printf("Processing Time: %d ms\n", processTime);
+    printf("Processing Time: %d ms\n", *processTime);
 
     //GTK
     if (gtk == 1)
