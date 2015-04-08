@@ -1,16 +1,8 @@
-﻿La génération a démarré 08/04/2015 15:35:49.
+﻿La génération a démarré 08/04/2015 17:04:34.
      1>Projet "D:\EUP\DI-5\DI5_S10\Projet le l'option LO\WorkersPacedProductionLineC\WorkersPacedProductionLineC\WorkersPacedProductionLineC.vcxproj" sur le nœud 2 (Build cible(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _INLINE /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TC /analyze- /errorReport:prompt -IC:/gtk/include/gtk-3.0 -IC:/gtk/include/cairo -IC:/gtk/include/pango-1.0 -IC:/gtk/include/atk-1.0 -IC:/gtk/include/cairo -IC:/gtk/include/pixman-1 -IC:/gtk/include -IC:/gtk/include/freetype2 -IC:/gtk/include -IC:/gtk/include/libpng15 -IC:/gtk/include/gdk-pixbuf-2.0 -IC:/gtk/include/libpng15 -IC:/gtk/include/glib-2.0 -IC:/gtk/lib/glib-2.0/include "..\..\..\Projet le l'option LO\WorkersPacedProductionLineC\WorkersPacedProductionLineC\Station.c" "..\..\..\Projet le l'option LO\WorkersPacedProductionLineC\WorkersPacedProductionLineC\Task.c" "..\..\..\Projet le l'option LO\WorkersPacedProductionLineC\WorkersPacedProductionLineC\Utility.c" "..\..\..\Projet le l'option LO\WorkersPacedProductionLineC\WorkersPacedProductionLineC\Worker.c" "..\..\..\Projet le l'option LO\WorkersPacedProductionLineC\WorkersPacedProductionLineC\main.c"
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _INLINE /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TC /analyze- /errorReport:prompt -IC:/gtk/include/gtk-3.0 -IC:/gtk/include/cairo -IC:/gtk/include/pango-1.0 -IC:/gtk/include/atk-1.0 -IC:/gtk/include/cairo -IC:/gtk/include/pixman-1 -IC:/gtk/include -IC:/gtk/include/freetype2 -IC:/gtk/include -IC:/gtk/include/libpng15 -IC:/gtk/include/gdk-pixbuf-2.0 -IC:/gtk/include/libpng15 -IC:/gtk/include/glib-2.0 -IC:/gtk/lib/glib-2.0/include "..\..\..\Projet le l'option LO\WorkersPacedProductionLineC\WorkersPacedProductionLineC\main.c"
          main.c
-         Worker.c
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\worker.c(78): warning C4305: '=' : troncation de '__int64' à 'float'
-         Utility.c
-         Task.c
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\task.c(58): warning C4244: 'initialisation' : conversion de 'int' en 'float', perte possible de données
-     1>d:\eup\di-5\di5_s10\projet le l'option lo\workerspacedproductionlinec\workerspacedproductionlinec\task.c(59): warning C4244: 'initialisation' : conversion de 'int' en 'float', perte possible de données
-         Station.c
-         Génération de code en cours...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\EUP\DI-5\DI5_S10\Projet le l'option LO\WorkersPacedProductionLineC\Debug\WorkersPacedProductionLineC.exe" /INCREMENTAL /NOLOGO /LIBPATH:C:\gtk\lib /LIBPATH:C:\gtk\bin "gtk-win32-3.0.lib" "atk-1.0.lib" cairo.lib fontconfig.lib gailutil.lib "gdk_pixbuf-2.0.lib" "gdk-win32-3.0.lib" "gio-2.0.lib" "glib-2.0.lib" "gmodule-2.0.lib" "gobject-2.0.lib" "gthread-2.0.lib" kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\EUP\DI-5\DI5_S10\Projet le l'option LO\WorkersPacedProductionLineC\Debug\WorkersPacedProductionLineC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\EUP\DI-5\DI5_S10\Projet le l'option LO\WorkersPacedProductionLineC\Debug\WorkersPacedProductionLineC.lib" /MACHINE:X86 /libpath:C:/gtk/lib.lib gdi32.lib imm32.lib shell32.lib ole32.lib pangocairo-1.0.lib pangoft2-1.0.lib fontconfig.lib pangowin32-1.0.lib gdi32.lib pango-1.0.lib atk-1.0.lib cairo.lib gdk_pixbuf-2.0.lib gio-2.0.lib gobject-2.0.lib glib-2.0.lib /ENTRY:mainCRTStartup Debug\main.obj
          Debug\Station.obj
@@ -22,4 +14,4 @@
 
 La génération a réussi.
 
-Temps écoulé 00:00:10.50
+Temps écoulé 00:00:06.02

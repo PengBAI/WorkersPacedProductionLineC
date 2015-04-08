@@ -1096,7 +1096,6 @@ int behindDue_PWGSv2(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPa
 {
     int i = 0;
     float delta = 0.0;
-    int noChange = 0;
     int nbWorkers = _nbWorkers;
     int nbWoekersAssignedTask = 0;
     int nbWorkersChange = 0;
@@ -1112,16 +1111,15 @@ int behindDue_PWGSv2(Task** tasks, int ** TasksCriticalPathWay, int nbCriticalPa
             // mise à jour delta
             delta += CalculateDuration(tasks[(*TasksCriticalPathWay)[i]], nbWoekersAssignedTask) - CalculateDuration(tasks[(*TasksCriticalPathWay)[i]], nbWorkersChange);
             tasks[(*TasksCriticalPathWay)[i]]->nbWorkersToAssign = nbWorkersChange;
-            noChange = 1;
         }
         i++;
     }
-    //pas de solutions malgré les changements, on rend l'ordo initial, on ajoute un worker aux taches du chemin critique et on rajoute un worker
-    if (noChange == 0)
+    // delta est toujours < Delta, on rend l'ordo initial, on ajoute un worker aux taches du chemin critique et on rajoute un worker
+    if (delta < Delta)
     {
         nbWorkers++;
-        for (i = 0; i < _nbTasks; i++)
-            tasks[i]->nbWorkersToAssign = tasks[i]->workersMin;
+        /*for (i = 0; i < _nbTasks; i++)
+            tasks[i]->nbWorkersToAssign = tasks[i]->workersMin;*/
     }
     return nbWorkers;
 }
