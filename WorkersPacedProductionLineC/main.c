@@ -7,7 +7,6 @@ int main(int argc, char ** argv)
 {
     int turn = 0;
     while(++turn){
-        unsigned int randSeed = 1; //(int)time(NULL);
         Station** stations = NULL;
         Task** tasks = NULL;
         Worker** workers = NULL;
@@ -17,14 +16,15 @@ int main(int argc, char ** argv)
         int create = 0;
         int nombre = 0;
         char choix[50] = "";
-        int solution = 0;
         int processTime = 0;
 
         gtk_init(&argc, &argv);
 
-        printf("\n======= Choix %d =======\n\n", turn);
+        printf("\n********* Heuristique d'instance %d ********* \n\n", turn);
+        printf("======= Choix =======\n\n");
         printf("1. Vos propres donnees\n");
         printf("2. Benchmark\n");
+        printf("\nVotre choix ? ");
         fgets(choix, sizeof(choix), stdin);
         clean(choix, stdin);
         sscanf(choix, "%d", &nombre);
@@ -77,13 +77,14 @@ int main(int argc, char ** argv)
                     CommonHeuristicProcess(stations, tasks, timeBound, selection_topRandom, behindDue_Common, 1,&processTime);
                     break;
                 default:
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_Common, 1,&processTime);
+                    printf("Erreur dans la selection.\n");
+                   /* CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_Common, 1,&processTime);
                     CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_Common, 1,&processTime);
                     CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGS, 1,&processTime);
                     CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGS, 1,&processTime);
                     CommonHeuristicProcess(stations, tasks, timeBound, selection_topLong, behindDue_PWGSv2, 1,&processTime);
                     CommonHeuristicProcess(stations, tasks, timeBound, selection_topShort, behindDue_PWGSv2, 1,&processTime);
-                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topRandom, behindDue_Common, 1,&processTime);
+                    CommonHeuristicProcess(stations, tasks, timeBound, selection_topRandom, behindDue_Common, 1,&processTime);*/
                 }
                 getchar();
                 //return 0;
@@ -92,18 +93,23 @@ int main(int argc, char ** argv)
                 //Création de nouvelles instances aléatoires
 
                 //Benchmark
-                printf("=== Benchmark ===\n\n");
-                printf("0. Garder les jeux de donnees tests\n");
-                printf("1. Recrer un nouveau jeu de donnees\n");
+                printf("======= Benchmark =======\n\n");
+                printf("0. Demarrer directement les heuristiques\n");
+                printf("1. Recrer un nouveau jeu de donnees et demarrer les heuristiques\n");
+                printf("\nVotre choix ? ");
                 scanf("%d", &create);
-
-                Benchmark(create);
+                if(create==0 || create == 1){
+                    Benchmark(create);
+                }else{
+                    printf("Erreur dans la selection. \n");
+                    getchar();
+                }
                 getchar();
                 //return 0;
             }
         }
         else{
-            printf("Erreur dans la sélection.");
+            printf("Erreur dans la selection.\n");
             getchar();
             //return 0;
         }
@@ -113,6 +119,7 @@ int main(int argc, char ** argv)
 
 /*
 * test with the benchmark and write the result into file .csv
+* @param create   1, recréer les instances et calcul; 0, démarrer les heuristiques
 */
 void Benchmark(int create)
 {
@@ -351,6 +358,7 @@ void CreateNewInstance(int nInstance)
                         printf("Erreur a l'ouverture du fichier\n");
                     else {
                         // écriture dans le fichier
+                        // total station number and total task number
                         fprintf(fichier, "%d\t%d\n", nbStations[k], nbTasks[i]);
                         stations = (int**)realloc(stations, sizeof(int*)*nbStations[k]);
                         if (stations == NULL)
@@ -398,11 +406,13 @@ void CreateNewInstance(int nInstance)
                             numeroAi = ai[rand() % 4];
                             numeroBi = rand() % (numeroAi + 1) + numeroAi;
                             numeroA = numeroA + ((durationTask*((numeroAi + numeroBi) / 2)));
+                            // task
                             fprintf(fichier, "%d\t%d\t%d\t%d\n", durationTask, numeroStation, numeroAi, numeroBi);
                         }
+                        // D
                         numeroA = (numeroA / nbStations[k])*1,5;
                         fprintf(fichier, "%d\n", numeroA);
-
+                        // predecesseur
                         for (y = 0; y < nbTasks[i]; y++){
                             for (w = 0; w <= predecesseur[y][0]; w++){
                                 fprintf(fichier, "%d\t", predecesseur[y][w]);
