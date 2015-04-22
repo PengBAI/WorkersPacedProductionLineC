@@ -46,6 +46,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>C:\gtk\include;C:\gtk\lib\glib-2.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\gtk\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -73,13 +75,18 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_INLINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CompileAs>CompileAsC</CompileAs>
+      <AdditionalOptions>-IC:/gtk/include/gtk-3.0 -IC:/gtk/include/cairo -IC:/gtk/include/pango-1.0 -IC:/gtk/include/atk-1.0 -IC:/gtk/include/cairo -IC:/gtk/include/pixman-1 -IC:/gtk/include -IC:/gtk/include/freetype2 -IC:/gtk/include -IC:/gtk/include/libpng15 -IC:/gtk/include/gdk-pixbuf-2.0 -IC:/gtk/include/libpng15 -IC:/gtk/include/glib-2.0 -IC:/gtk/lib/glib-2.0/include %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\gtk\lib;C:\gtk\bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/libpath:C:/gtk/lib.lib gdi32.lib imm32.lib shell32.lib ole32.lib pangocairo-1.0.lib pangoft2-1.0.lib fontconfig.lib pangowin32-1.0.lib gdi32.lib pango-1.0.lib atk-1.0.lib cairo.lib gdk_pixbuf-2.0.lib gio-2.0.lib gobject-2.0.lib glib-2.0.lib /ENTRY:mainCRTStartup %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>gtk-win32-3.0.lib;atk-1.0.lib;cairo.lib;fontconfig.lib;gailutil.lib;gdk_pixbuf-2.0.lib;gdk-win32-3.0.lib;gio-2.0.lib;glib-2.0.lib;gmodule-2.0.lib;gobject-2.0.lib;gthread-2.0.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
